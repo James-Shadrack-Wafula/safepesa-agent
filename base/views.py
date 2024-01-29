@@ -4,7 +4,7 @@ from . qr import Qr
 from . camerastream import CameraStream
 from django.http import StreamingHttpResponse
 import cv2
-from pyzbar.pyzbar import decode
+# from pyzbar.pyzbar import decode
 from django.http import JsonResponse
 from . serializers import UserSerializer
 from django.shortcuts import get_object_or_404
