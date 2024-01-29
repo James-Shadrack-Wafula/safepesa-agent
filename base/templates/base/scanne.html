@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #video {
+            width: 80%;
+            max-width: 640px;
+            border: 2px solid #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+    <video id="video" autoplay></video>
+    <button id="startScanBtn">Start Scanning</button>
+
+    <script src="https://cdn.rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById('video');
+            const startScanBtn = document.getElementById('startScanBtn');
+
+            let isScanning = false;
+
+            startScanBtn.addEventListener('click', () => {
+                if (!isScanning) {
+                    startScanning();
+                } else {
+                    stopScanning();
+                }
+            });
+
+            function startScanning() {
+                const constraints = { video: { facingMode: 'environment' } };
+
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then((stream) => {
+                        video.srcObject = stream;
+
+                        const track = stream.getVideoTracks()[0];
+                        const imageCapture = new ImageCapture(track);
+
+                        isScanning = true;
+                        startScanBtn.textContent = 'Stop Scanning';
+
+                        const scanInterval = setInterval(() => {
+                            imageCapture.grabFrame()
+                                .then((imageBitmap) => {
+                                    const canvas = document.createElement('canvas');
+                                    canvas.width = imageBitmap.width;
+                                    canvas.height = imageBitmap.height;
+                                    const context = canvas.getContext('2d');
+                                    context.drawImage(imageBitmap, 0, 0, imageBitmap.width, imageBitmap.height);
+
+                                    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                                    if (code) {
+                                        console.log('QR Code Detected:', code.data);
+
+                                        // Send data to Django
+                                        sendDataToDjango(code.data);
+                                        stopScanning();
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error('Error grabbing frame:', error);
+                                });
+                        }, 1000);
+
+                        // Save the interval ID to stop scanning later
+                        video.dataset.scanInterval = scanInterval;
+                    })
+                    .catch((error) => {
+                        console.error('Error accessing camera:', error);
+                    });
+            }
+
+            function stopScanning() {
+                const stream = video.srcObject;
+                const tracks = stream.getTracks();
+
+                tracks.forEach(track => track.stop());
+
+                video.srcObject = null;
+                isScanning = false;
+                startScanBtn.textContent = 'Start Scanning';
+
+                // Clear the scanning interval
+                const scanInterval = video.dataset.scanInterval;
+                if (scanInterval) {
+                    clearInterval(parseInt(scanInterval, 10));
+                    video.dataset.scanInterval = '';
+                }
+            }
+
+            function sendDataToDjango(qrCodeData) {
+                // Send an AJAX request to Django
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/process_qr_code/', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        console.log('Server Response:', response);
+                    }
+                };
+                const data = 'qr_code_data=' + encodeURIComponent(qrCodeData);
+                xhr.send(data);
+            }
+        });
+    </script>
+</body>
+</html>
+ 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        #userForm {
+            width: 80%;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+            border-color: #3498db;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        input[type="file"] {
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <title>User Information Form</title>
+</head>
+<body>
+
+<div id="userForm">
+    <h2>User Information Form</h2>
+    <form  method="POST" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" id="userName" name="name" placeholder="Name" required>
+        <input type="text" id="admissionNumber" name="adm" placeholder="Admission Number" required>
+        <input type="text" id="userClass" name="_class" placeholder="Class" required>
+        <input type="text" id="userStream" name="balance" placeholder="balance" required>
+        <input type="file" id="userImage" name="img"  placeholder="Profile Picture">
+        inp
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+        const userName = document.getElementById('userName').value;
+        const admissionNumber = document.getElementById('admissionNumber').value;
+        const userClass = document.getElementById('userClass').value;
+        const userStream = document.getElementById('userStream').value;
+        const userImage = document.getElementById('userImage').value;
+
+        console.log('Name:', userName);
+        console.log('Admission Number:', admissionNumber);
+        console.log('Class:', userClass);
+        console.log('Stream:', userStream);
+        console.log('Profile Picture:', userImage);
+    }
+</script>
+
+</body>
+</html>
