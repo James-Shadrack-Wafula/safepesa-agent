@@ -27,8 +27,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
-ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 APPEND_SLASH=False
 # Application definition
@@ -93,9 +93,9 @@ DATABASES = {
     }
 }
 
-# database_url = os.environ.get("DATABASES_URL")
-# DATABASES['default'] = dj_database_url.parse(database_url)
-DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
+database_url = os.environ.get("DATABASES_URL")
+DATABASES['default'] = dj_database_url.parse(database_url)
+# DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
 #postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db
 
 # Password validation
