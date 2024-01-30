@@ -98,7 +98,7 @@ DATABASES = {
 
 # database_url = os.environ.get("DATABASES_URL")
 # DATABASES['default'] = dj_database_url.parse(database_url)
-# DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
+DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
 #postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db
 
 # Password validation
@@ -216,3 +216,6 @@ cloudinary.config(
     api_key = "114527579874225",
     api_secret = "8TkWd9lp-jJP7pagWzq9Wo9zYk4"
 )
+
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
