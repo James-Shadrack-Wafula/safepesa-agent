@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_daraja',
     'channels',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -209,3 +213,11 @@ MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+# Cloudinary Django intergation
+
+cloudinary.config(
+    cloud_name = "dxkb9gtnx",
+    api_key = "114527579874225",
+    api_secret = "8TkWd9lp-jJP7pagWzq9Wo9zYk4"
+)

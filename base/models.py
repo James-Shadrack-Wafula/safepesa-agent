@@ -11,6 +11,11 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 from PIL import Image
+from cloudinary.models import CloudinaryField
+# from . qr import gen
+from base.qr import Qr
+# from cloudinary.uploader import upload
+# import cloudinary
 
 # Create your models here.
 class QRCodeScan(models.Model):
@@ -22,34 +27,23 @@ class QRCodeScan(models.Model):
     
 class Student(models.Model):
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/')
+    # image = models.ImageField(upload_to='images/')
+    image = CloudinaryField('image', use_filename=True, unique_filename=False)
     class_name = models.CharField(max_length=50)
     student_adm = models.CharField(max_length=200, null=True, blank=True)
     balance = models.IntegerField(null=True, blank=True)
     cumilative_deposit = models.IntegerField(null=True, blank=True, default=balance)
     cumilative_withdraw = models.IntegerField(null=True, blank=True, default=0)
 
-    def __str__(self):
+    def __str__(self):  
         return self.name
 
+    def save(self, *args, **kwargs):
+        Qr.gen(f'{self.student_adm}', f'{self.name}')
+        super().save(*args, **kwargs)
 
-    # def save(self, *args, **kwargs):
-    #     # Generate QR code and save it as an image
-    #     qr = qrcode.QRCode(
-    #         version=1,
-    #         box_size=10,
-    #         border=5,
-    #     )
-    #     qr.add_data(self.student_adm)
-    #     qr.make(fit=True)
-
-    #     img = qr.make_image(fill_color="black", back_color="white")
-    #     buffer = BytesIO()
-    #     img.save(buffer)
-    #     self.image.save(f'{self.student_adm}_qr.png', File(buffer), save=False)
-
-    #     super().save(*args, **kwargs)
     
+
 
 # @receiver(post_save, sender=Student)
 # def student_balance_updated(sender, instance, **kwargs):

@@ -98,7 +98,7 @@ def add_student(request):
         student = Student(name=name, class_name=_class, student_adm=adm, balance=balance, image=img)
         student.save()
         
-        Qr(f"{student.student_adm}", f'{name}').gen()
+        # Qr(f"{student.student_adm}", f'{name}').gen()
         return Response({'status': 'Child added successfully'})
 
         # return HttpResponse(f"It's working{img}")
@@ -183,6 +183,8 @@ def _add_student_api(request):
         return HttpResponse(f"It's working{img}")
     return Response({'status': 'Error adding child'}, status=400)
     # return render(request, 'base/add_student.html')
+
+import cloudinary
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def add_student_api(request):
@@ -203,7 +205,8 @@ def add_student_api(request):
         student = Student(name=name, student_adm=student_adm, class_name=class_name, balance=0, cumilative_deposit=0, cumilative_withdraw=0)
        
         student.image.save(f"{student_adm}_image.jpg", ContentFile(image_data), save=True)
-        Qr(f"{student.student_adm}", f'{name}').gen()
+        Qr.gen(f"{student.student_adm}", f'{name}')
+        # cloudinary.uploader.upload(f'{name}')
 
 
         # Return success response
