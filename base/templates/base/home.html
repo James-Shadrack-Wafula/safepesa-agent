@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safe Pesa - Pocket Money Monitoring System</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dxkb9gtnx/image/upload/c_fill,r_max,w_32,h_32/v1707083210/Screenshot_from_2023-10-22_15-54-03_dtwerf.png">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('https://res.cloudinary.com/dxkb9gtnx/image/upload/v1706708659/gencraft_image_1706699601735-1.png');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+    }
+
+    .content {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .typed-text {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 600px; /* Set your desired maximum width */
+      margin: 0 auto; /* Center the paragraph */
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #2980b9;
+    }
+
+    .typed-text {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 600px; /* Set your desired maximum width */
+    margin: 0 auto; /* Center the paragraph */
+  }
+
+  .cta-button {
+    display: inline-block;
+    margin-top: 20px; /* Add spacing between paragraph and button */
+    padding: 15px 30px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Welcome to Safe Pesa</h1>
+    <p class="typed-text" id="typing-paragraph"></p>
+    <a href="#" class="cta-button">Download The App</a>
+  </div>
+
+  <script>
+    const sentences = [
+      "Empower yourself with Safe Pesa,",
+      "A cutting-edge pocket money monitoring system ", 
+      // "Designed exclusively for parents to stay connected with their children's financial journey in school.",
+      "Effortlessly track and manage your child's expenses,",
+      "Gain insights into spending habits,",
+      "And foster financial responsibility with Safe Pesa."
+    ];
+
+    let index = 0;
+    let currentIndex = 0;
+    let currentText = "";
+    let letterInterval;
+
+    function type() {
+      if (currentIndex < sentences[index].length) {
+        currentText += sentences[index][currentIndex];
+        document.getElementById("typing-paragraph").innerHTML = currentText;
+        currentIndex++;
+      } else {
+        clearInterval(letterInterval);
+        setTimeout(() => {
+          currentText = "";
+          currentIndex = 0;
+          index = (index + 1) % sentences.length;
+          startTyping();
+        }, 2000); // Pause for 2 seconds before starting again
+      }
+    }
+
+    function startTyping() {
+      letterInterval = setInterval(type, 100);
+    }
+
+    startTyping();
+  </script>
+</body>
+</html>

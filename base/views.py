@@ -53,7 +53,8 @@ class TransactionInit(APIView):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
 def home(request):
-    return render(request, 'base/detect.html')
+    return render(request, 'base/home.html')
+    # return render(request, 'base/detect.html')
 def scanner(request, code): 
     return HttpResponse(f"<h1>{code}</h1>")
 def scan(request):
