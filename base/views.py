@@ -60,6 +60,62 @@ def scanner(request, code):
 def scan(request):
     return render(request, 'base/scanne.html')
 
+
+
+from djangoflutterwave.models import FlwPlanModel
+from django.views.generic import TemplateView
+
+class SignUpView(TemplateView):
+    """Sign Up view"""
+
+    template_name = "my_payment_template.html"
+
+    def get_context_data(self, **kwargs):
+        """Add payment type to context data"""
+        kwargs = super().get_context_data(**kwargs)
+        kwargs["pro_plan"] = FlwPlanModel.objects.filter(
+            name="Pro Plan"
+        ).first()
+        return kwargs
+
+
+from django.http import JsonResponse
+from django.conf import settings
+#import flutterwave
+
+def initiate_payment(request):
+    pass
+#     # Initialize Flutterwave
+#     flutterwave_instance = flutterwave.Flutterwave(public_key=settings.FLUTTERWAVE_PUBLIC_KEY, secret_key=settings.FLUTTERWAVE_SECRET_KEY, environment='sandbox')
+
+#     # Create a payment request
+#     payment_data = {
+#         "tx_ref": "unique_transaction_reference",
+#         "amount": 1000,
+#         "currency": "NGN",
+#         "redirect_url": "http://yourwebsite.com/payment_callback/",
+#         "payment_options": "card",
+#         "customer": {
+#             "email": "customer@example.com",
+#         },
+#         "customizations": {
+#             "title": "Your App Name",
+#             "description": "Payment for services",
+#         }
+#     }
+
+#     # Initialize payment
+#     response = flutterwave_instance.Payment.initialize(payment_data)
+
+#     # Redirect user to Flutterwave payment page
+#     return JsonResponse(response)
+
+def payment_callback(request):
+    # Handle Flutterwave payment callback
+    transaction_id = request.GET.get('transaction_id')
+    # You can update your database or do other processing here based on the transaction status
+
+    return JsonResponse({'message': 'Payment callback received'})
 # views.py
 
 def process_qr_code(request):
