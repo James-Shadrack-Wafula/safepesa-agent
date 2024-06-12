@@ -13,9 +13,8 @@ import os
 from pathlib import Path
 import dj_database_url
 import cloudinary
-import cloudinary.uploader
 import cloudinary.api
-
+import cloudinary.uploader
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-(i%bf9!2)28q(x2t1-67#b#r-wr90nmn!o-1vf$v@*^q0(!avn'
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-(i%bf9!2)28q(x2t1-67#b#r-wr90nmn!o-1vf$v@*^q0(!avn'
+# SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
+DEBUG = True
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "True"
 
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
@@ -50,10 +49,10 @@ INSTALLED_APPS = [
     'django_daraja',
     'channels',
     'cloudinary',
+    'djangoflutterwave',
 ]
 
 MIDDLEWARE = [
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
     # 'rest_framework.authtoken.middleware.TokenMiddleware',
     
     
@@ -98,8 +97,8 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASES_URL")
-DATABASES['default'] = dj_database_url.parse(database_url)
+# database_url = os.environ.get("DATABASES_URL")
+# DATABASES['default'] = dj_database_url.parse(database_url)
 #DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
 #postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db
 
@@ -157,9 +156,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_URL = '/static/'
 
-
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -212,18 +212,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# Cloudinary Django intergation
-
 cloudinary.config(
     cloud_name = "dxkb9gtnx",
     api_key = "114527579874225",
     api_secret = "8TkWd9lp-jJP7pagWzq9Wo9zYk4"
 )
 
-STATIC_URL = '/static/'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

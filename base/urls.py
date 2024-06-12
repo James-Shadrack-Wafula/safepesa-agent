@@ -40,6 +40,9 @@ urlpatterns = [
     path('api/trans/', views.TransactionInit.as_view(), name='transact'),
 
     path("ws/some_path/", views.websocket_path),
+
+    path('initiate_payment/', views.initiate_payment, name='initiate_payment'),
+    path('payment_callback/', views.payment_callback, name='payment_callback'),
     # path('camera_feed/', views.camera_feed, name='camera_feed'),
     # path('qr_code_scanner/', views.qr_code_scanner, name='qr_code_scanner'),
 ]

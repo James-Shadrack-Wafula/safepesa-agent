@@ -25,7 +25,7 @@ def initiate_stk_push(request, _phone = 254746727592, _amount = 1):
             party_a = phone
             party_b = '254708374149'
             account_reference = 'UMESKIA SOFTWARES'
-            transaction_desc = 'stkpush test'
+            transaction_desc = 'Safe Pesa M-Pesa Express'
             stk_push_headers = {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + access_token
