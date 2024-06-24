@@ -90,17 +90,24 @@ WSGI_APPLICATION = 'web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+     'default': dj_database_url.config(
+        default='postgres://ijwlvmgb:NNFllNacUXPlyH34x9BeXxspL71zXzaR@rain.db.elephantsql.com/ijwlvmgb'
+    )
 }
+
 # This is a ..
 # database_url = os.environ.get("DATABASES_URL")
 # DATABASES['default'] = dj_database_url.parse(database_url)
 
-DATABASES['default'] = dj_database_url.parse("postgres://ijwlvmgb:NNFllNacUXPlyH34x9BeXxspL71zXzaR@rain.db.elephantsql.com/ijwlvmgb")
+# DgATABASES['default'] = dj_database_url.parse("postgres://ijwlvmgb:NNFllNacUXPlyH34x9BeXxspL71zXzaR@rain.db.elephantsql.com/ijwlvmgb")
 
 #DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
 
