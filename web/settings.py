@@ -96,10 +96,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+# This is a ..
 # database_url = os.environ.get("DATABASES_URL")
 # DATABASES['default'] = dj_database_url.parse(database_url)
+<<<<<<< HEAD
 DATABASES['default'] = dj_database_url.parse("postgres://ijwlvmgb:NNFllNacUXPlyH34x9BeXxspL71zXzaR@rain.db.elephantsql.com/ijwlvmgb")
+=======
+#DATABASES['default'] = dj_database_url.parse("postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db")
+>>>>>>> origin/main
 #postgres://safe_pesa_db_user:a6UCTys5qspve9VreUm69Ea7YjFwCeWT@dpg-cmrcbled3nmc73efqd0g-a.oregon-postgres.render.com/safe_pesa_db
 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
